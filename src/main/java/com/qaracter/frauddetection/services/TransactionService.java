@@ -41,4 +41,12 @@ public class TransactionService {
     public List<Transaction> getTransactionsSinceAccount(long timeSince, Long accountId){
         return this.getTransactionsSince(timeSince).stream().filter(t -> t.getAccountId().equals(accountId)).toList();
     }
+
+    public List<Transaction> getTransactionsWithAmountGreaterThan(double amount){
+        return this.transactions.stream().filter(t -> t.getAmount() > amount).toList();
+    }
+
+    public List<Transaction> getTransactionsWithAmountLessetThan(double amount){
+        return this.transactions.stream().filter(t -> t.getAmount() < amount).toList();
+    }
 }
