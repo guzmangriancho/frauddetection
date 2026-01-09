@@ -2,6 +2,7 @@ package com.qaracter.frauddetection.services;
 
 import com.qaracter.frauddetection.models.Transaction;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,5 +24,21 @@ public class TransactionService {
 
     public List<Transaction> getAllTransactions(){
         return new ArrayList<>(this.transactions);
+    }
+
+    public List<Transaction> getFlaggedTransactions(){
+        return this.transactions.stream().filter(Transaction::isFlagged).toList();
+    }
+
+    public List<Transaction> getAllTransactionsFromAccount(Long accountId){
+        return this.transactions.stream().filter(t -> t.getAccountId().equals(accountId)).toList();
+    }
+
+    public List<Transaction> getTransactionsSince(long timeSince){
+        return this.transactions.stream().filter(t -> t.getTimestamp() > timeSince).toList();
+    }
+
+    public List<Transaction> getTransactionsSinceAccount(long timeSince, Long accountId){
+        return this.getTransactionsSince(timeSince).stream().filter(t -> t.getAccountId().equals(accountId)).toList();
     }
 }
