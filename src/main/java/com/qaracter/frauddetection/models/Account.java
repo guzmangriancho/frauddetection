@@ -1,11 +1,14 @@
 package com.qaracter.frauddetection.models;
 
 public class Account {
+
     private Long id;
+    private Long userId;
     private double balance;
 
-    public Account(Long id, double balance) {
+    public Account(Long id, Long userId, double balance) {
         this.id = id;
+        this.userId = userId;
         this.balance = balance;
     }
 
@@ -13,16 +16,12 @@ public class Account {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getUserId() {
+        return userId;
     }
 
     public double getBalance() {
         return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
     }
 
     public void deposit(double amount) {

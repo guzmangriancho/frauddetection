@@ -1,24 +1,21 @@
 package com.qaracter.frauddetection.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    private String id;
-    private String name;
-    private List<Account> accounts;
 
-    public User(String id, String name, List<Account> accounts) {
+    private Long id;
+    private String name;
+    private List<Account> accounts = new ArrayList<>();
+
+    public User(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.accounts = accounts;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -33,7 +30,7 @@ public class User {
         return accounts;
     }
 
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
+    public void addAccount(Account account) {
+        accounts.add(account);
     }
 }
