@@ -2,16 +2,16 @@ package com.qaracter.frauddetection.models;
 
 public class Transaction {
     private Long id;
-    private Long accountId;
-    private String recipient;
+    private Long senderAccountId;
+    private Long recipientAccountId;
     private double amount;
     private long timestamp;
     private boolean flagged = false;
 
-    public Transaction(Long id, Long accountId, String recipient, double amount) {
+    public Transaction(Long id, Long senderAccountId, Long recipientAccountId, double amount) {
         this.id = id;
-        this.accountId = accountId;
-        this.recipient = recipient;
+        this.senderAccountId = senderAccountId;
+        this.recipientAccountId = recipientAccountId;
         this.amount = amount;
         this.timestamp = System.currentTimeMillis();
     }
@@ -24,20 +24,20 @@ public class Transaction {
         this.id = id;
     }
 
-    public Long getAccountId() {
-        return accountId;
+    public Long getSenderAccountId() {
+        return senderAccountId;
     }
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
+    public void setSenderAccountId(Long accountId) {
+        this.senderAccountId = accountId;
     }
 
-    public String getRecipient() {
-        return recipient;
+    public Long getRecipientAccountId() {
+        return recipientAccountId;
     }
 
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
+    public void setRecipientAccountId(Long recipientAccountId) {
+        this.recipientAccountId = recipientAccountId;
     }
 
     public double getAmount() {

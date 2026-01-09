@@ -31,7 +31,7 @@ public class TransactionService {
     }
 
     public List<Transaction> getAllTransactionsFromAccount(Long accountId){
-        return this.transactions.stream().filter(t -> t.getAccountId().equals(accountId)).toList();
+        return this.transactions.stream().filter(t -> t.getSenderAccountId().equals(accountId)).toList();
     }
 
     public List<Transaction> getTransactionsSince(long timeSince){
@@ -39,7 +39,7 @@ public class TransactionService {
     }
 
     public List<Transaction> getTransactionsSinceAccount(long timeSince, Long accountId){
-        return this.getTransactionsSince(timeSince).stream().filter(t -> t.getAccountId().equals(accountId)).toList();
+        return this.getTransactionsSince(timeSince).stream().filter(t -> t.getSenderAccountId().equals(accountId)).toList();
     }
 
     public List<Transaction> getTransactionsWithAmountGreaterThan(double amount){
@@ -48,5 +48,24 @@ public class TransactionService {
 
     public List<Transaction> getTransactionsWithAmountLesserThan(double amount){
         return this.transactions.stream().filter(t -> t.getAmount() < amount).toList();
+    }
+
+    public List<Transaction> getAllTransactionsToRecipient(Long recipientAccountId) {
+        return this.transactions.stream()
+                .filter(t -> t.getRecipientAccountId().equals(recipientAccountId))
+                .toList();
+    }
+
+    public List<Transaction> getTransactionsReceivedSince(long timeSince, Long recipientAccountId) {
+        return this.getTransactionsSince(timeSince).stream()
+                .filter(t -> t.getRecipientAccountId().equals(recipientAccountId))
+                .toList();
+    }
+
+    public List<Transaction> getTransactionsBetween(Long senderAccountId, Long recipientAccountId) {
+        return this.transactions.stream()
+                .filter(t -> t.getSenderAccountId().equals(senderAccountId) &&
+                        t.getRecipientAccountId().equals(recipientAccountId))
+                .toList();
     }
 }
