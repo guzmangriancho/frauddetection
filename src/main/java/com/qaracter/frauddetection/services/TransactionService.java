@@ -46,7 +46,7 @@ public class TransactionService {
         return this.transactions.stream().filter(t -> t.getAmount() > amount).toList();
     }
 
-    public List<Transaction> getTransactionsWithAmountLessetThan(double amount){
+    public List<Transaction> getTransactionsWithAmountLesserThan(double amount){
         return this.transactions.stream().filter(t -> t.getAmount() < amount).toList();
     }
 }
