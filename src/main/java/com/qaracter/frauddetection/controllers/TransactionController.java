@@ -33,6 +33,10 @@ public class TransactionController {
         return this.transactionService.getAllTransactions();
     }
 
+    public List<Transaction> getFlaggedTransactions(){
+        return this.transactionService.getFlaggedTransactions();
+    }
+
     @GetMapping("/sender/{transferId}")
     public Long getSenderAccountId(Long transferId){
         return this.transactionService.getTransactionById(transferId).getSenderAccountId();
