@@ -2,10 +2,12 @@ package com.qaracter.frauddetection.services;
 
 import com.qaracter.frauddetection.models.Account;
 import com.qaracter.frauddetection.models.Transaction;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class TransactionService {
     private List<Transaction> transactions;
     private final AccountService accountService;
