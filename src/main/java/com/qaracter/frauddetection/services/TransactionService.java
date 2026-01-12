@@ -1,6 +1,8 @@
 package com.qaracter.frauddetection.services;
 
+import com.qaracter.frauddetection.models.Account;
 import com.qaracter.frauddetection.models.Transaction;
+import com.qaracter.frauddetection.services.AccountService;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -9,9 +11,42 @@ import java.util.Optional;
 
 public class TransactionService {
     private List<Transaction> transactions;
+    private final AccountService accountService;
 
     public TransactionService(){
         this.transactions = new ArrayList<>();
+        this.accountService = new AccountService();
+    }
+
+    public Transaction transfer(Long senderId, Long recipientId, double amount) {
+
+        Account sender = accountService.getAccount(senderId);
+        Account recipient = accountService.getAccount(recipientId);
+
+        if (!sender.withdraw(amount)) {
+            throw new IllegalArgumentException("Insufficient balance");
+        }
+
+        recipient.deposit(amount);
+
+        Transaction transaction = new Transaction(
+                System.currentTimeMillis(),
+                senderId,
+                recipientId,
+                amount
+        );
+
+        transactions.add(transaction);
+        return transaction;
+    }
+
+    public List<Transaction> getTransactionsByAccount(Long accountId) {
+        List<Transaction> result = new ArrayList<>();
+
+        result.addAll(getAllTransactionsFromAccount(accountId));
+        result.addAll(getAllTransactionsToRecipient(accountId));
+
+        return result;
     }
 
     public boolean addTransaction(Transaction t){
