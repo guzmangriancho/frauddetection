@@ -107,8 +107,8 @@ public class TransactionService {
         return this.transactions.stream().filter(t -> t.getTimestamp() > timeSince).toList();
     }
 
-    public List<Transaction> getTransactionsSinceAccount(long timeSince, Long accountId){
-        return this.getTransactionsSince(timeSince).stream().filter(t -> t.getSenderAccountId().equals(accountId)).toList();
+    public List<Transaction> getTransactionsSentSince(long timeSince, Long senderAccountId){
+        return this.getTransactionsSince(timeSince).stream().filter(t -> t.getSenderAccountId().equals(senderAccountId)).toList();
     }
 
     public List<Transaction> getTransactionsWithAmountGreaterThan(double amount){

@@ -68,6 +68,21 @@ public class TransactionController {
         return this.transactionService.getTransactionById(transferId).getAmount();
     }
 
+    @GetMapping("/since/{time_in_seconds}")
+    public List<Transaction> getTransactionsSince(long time_in_seconds){
+        return this.transactionService.getTransactionsSince(time_in_seconds);
+    }
+
+    @GetMapping("/since/{time_in_seconds}/sender/{account_id}")
+    public List<Transaction> getTransactionsSentSince(long time_in_seconds,  Long account_id){
+        return this.transactionService.getTransactionsSentSince(time_in_seconds, account_id);
+    }
+
+    @GetMapping("/since/{time_in_seconds}/recipient/{account_id}")
+    public List<Transaction> getTransactionsReceivedSince(long time_in_seconds, Long account_id){
+        return this.transactionService.getTransactionsReceivedSince(time_in_seconds, account_id);
+    }
+
     @PatchMapping("/{id}/flag")
     public Transaction flagTransaction( @PathVariable Long id, boolean flag) {
         Transaction transaction = transactionService.setTransactionFlag(id, flag);
