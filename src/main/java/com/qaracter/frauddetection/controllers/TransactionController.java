@@ -40,4 +40,13 @@ public class TransactionController {
     public double getAmount(Long transferId){
         return this.transactionService.getTransactionById(transferId).getAmount();
     }
+
+    @PatchMapping("/{id}/flag")
+    public Transaction flagTransaction( @PathVariable Long id, boolean flag) {
+        Transaction transaction = transactionService.setTransactionFlag(id, flag);
+        if (transaction == null) {
+            throw new RuntimeException("Transaction not found");
+        }
+        return transaction;
+    }
 }
