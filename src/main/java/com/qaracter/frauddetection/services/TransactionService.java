@@ -31,12 +31,19 @@ public class TransactionService {
                 amount
         );
 
-        if (amount > 5000) {
+        checkFraud(transaction, senderId, recipientId, sender);
+
+        transactions.add(transaction);
+        return transaction;
+    }
+
+    private void checkFraud(Transaction transaction, Long senderId, Long recipientId, Account sender) {
+        if (transaction.getAmount() > 5000) {
             transaction.setFlagged(true);
             System.out.println("Transaction with id " + transaction.getId() + " flagged as suspicious: > $5000");
         }
 
-        long oneMinuteAgo = System.currentTimeMillis() - 60000;
+        long oneMinuteAgo = System.currentTimeMillis() - (60 * 1000);
         long count = transactions.stream()
                 .filter(t -> t.getSenderAccountId().equals(senderId))
                 .filter(t -> t.getTimestamp() > oneMinuteAgo)
@@ -46,8 +53,25 @@ public class TransactionService {
             System.out.println("Transaction with id " + transaction.getId() + " flagged as suspicious: Transaction per minute limit reached");
         }
 
-        transactions.add(transaction);
-        return transaction;
+        long fiveMinutesAgo = System.currentTimeMillis() - (5 * 60 * 1000);
+        Long currentUserId = sender.getUserId();
+
+        List<Transaction> suspicious = transactions.stream()
+                .filter(t -> t.getTimestamp() > fiveMinutesAgo)
+                .filter(t -> t.getRecipientAccountId().equals(recipientId))
+                .filter(t -> {
+                    Account pastSender = accountService.getAccount(t.getSenderAccountId());
+                    return pastSender.getUserId().equals(currentUserId);
+                })
+                .toList();
+
+        if (!suspicious.isEmpty()) {
+            transaction.setFlagged(true);
+            for(Transaction t : suspicious ){
+                t.setFlagged(true);
+            }
+            System.out.println("Transaction with id " + transaction.getId() + " flagged as suspicious: Pattern detected");
+        }
     }
 
     public List<Transaction> getTransactionsByAccount(Long accountId) {
