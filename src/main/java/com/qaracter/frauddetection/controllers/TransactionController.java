@@ -2,6 +2,7 @@ package com.qaracter.frauddetection.controllers;
 
 
 import com.qaracter.frauddetection.models.Transaction;
+import com.qaracter.frauddetection.models.TransferRequest;
 import com.qaracter.frauddetection.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,15 @@ public class TransactionController {
     @Autowired
     public TransactionController(TransactionService transactionService){
         this.transactionService = transactionService;
+    }
+
+    @PostMapping("/transfer")
+    public Transaction transfer(@RequestBody TransferRequest request) {
+        return transactionService.transfer(
+                request.getSenderAccountId(),
+                request.getRecipientAccountId(),
+                request.getAmount()
+        );
     }
 
     @GetMapping("/sender/{transferId}")
