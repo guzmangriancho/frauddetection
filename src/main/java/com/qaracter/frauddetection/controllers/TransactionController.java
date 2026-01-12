@@ -39,12 +39,12 @@ public class TransactionController {
     }
 
     @GetMapping("/lesser/{amount}")
-    public List<Transaction> getTransactionsWithAmountLesserThan(double amount){
+    public List<Transaction> getTransactionsWithAmountLesserThan(Double amount){
         return this.transactionService.getTransactionsWithAmountLesserThan(amount);
     }
 
     @GetMapping("/greater/{amount}")
-    public List<Transaction> getTransactionsWithAmountGreaterThan(double amount){
+    public List<Transaction> getTransactionsWithAmountGreaterThan(Double amount){
         return this.transactionService.getTransactionsWithAmountGreaterThan(amount);
     }
 
@@ -64,7 +64,7 @@ public class TransactionController {
     }
 
     @GetMapping("/amount/{transferId}")
-    public double getAmount(Long transferId){
+    public Double getAmount(Long transferId){
         return this.transactionService.getTransactionById(transferId).getAmount();
     }
 

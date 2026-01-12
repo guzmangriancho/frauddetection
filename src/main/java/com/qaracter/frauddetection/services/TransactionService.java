@@ -17,7 +17,7 @@ public class TransactionService {
         this.accountService = new AccountService();
     }
 
-    public Transaction transfer(Long senderId, Long recipientId, double amount) {
+    public Transaction transfer(Long senderId, Long recipientId, Double amount) {
         Account sender = accountService.getAccount(senderId);
         Account recipient = accountService.getAccount(recipientId);
 
@@ -113,11 +113,11 @@ public class TransactionService {
         return this.getTransactionsSince(timeSince).stream().filter(t -> t.getSenderAccountId().equals(senderAccountId)).toList();
     }
 
-    public List<Transaction> getTransactionsWithAmountGreaterThan(double amount){
+    public List<Transaction> getTransactionsWithAmountGreaterThan(Double amount){
         return this.transactions.stream().filter(t -> t.getAmount() > amount).toList();
     }
 
-    public List<Transaction> getTransactionsWithAmountLesserThan(double amount){
+    public List<Transaction> getTransactionsWithAmountLesserThan(Double amount){
         return this.transactions.stream().filter(t -> t.getAmount() < amount).toList();
     }
 

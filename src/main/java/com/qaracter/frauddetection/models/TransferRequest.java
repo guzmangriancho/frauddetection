@@ -3,7 +3,7 @@ package com.qaracter.frauddetection.models;
 public class TransferRequest {
     private Long senderAccountId;
     private Long recipientAccountId;
-    private double amount;
+    private Double amount;
 
     public Long getSenderAccountId() {
         return senderAccountId;
@@ -13,7 +13,7 @@ public class TransferRequest {
         return recipientAccountId;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 }

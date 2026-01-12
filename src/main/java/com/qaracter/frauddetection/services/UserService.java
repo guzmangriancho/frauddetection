@@ -38,7 +38,7 @@ public class UserService {
         return userList.removeIf(u -> u.getId().equals(id));
     }
 
-    public boolean processDeposit(Long userId, Long accountId, double amount) {
+    public boolean processDeposit(Long userId, Long accountId, Double amount) {
         User user = getUserById(userId);
         if (user != null) {
             return user.getAccounts().stream()
@@ -52,7 +52,7 @@ public class UserService {
         return false;
     }
 
-    public boolean processWithdrawal(Long userId, Long accountId, double amount) {
+    public boolean processWithdrawal(Long userId, Long accountId, Double amount) {
         User user = getUserById(userId);
         if (user != null) {
             return user.getAccounts().stream()

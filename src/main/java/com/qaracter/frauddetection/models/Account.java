@@ -4,9 +4,9 @@ public class Account {
 
     private Long id;
     private Long userId;
-    private double balance;
+    private Double balance;
 
-    public Account(Long id, Long userId, double balance) {
+    public Account(Long id, Long userId, Double balance) {
         this.id = id;
         this.userId = userId;
         this.balance = balance;
@@ -20,15 +20,15 @@ public class Account {
         return userId;
     }
 
-    public double getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void deposit(double amount) {
+    public void deposit(Double amount) {
         this.balance += amount;
     }
 
-    public boolean withdraw(double amount) {
+    public boolean withdraw(Double amount) {
         if (this.balance >= amount) {
             this.balance -= amount;
             return true;

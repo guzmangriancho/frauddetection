@@ -4,11 +4,11 @@ public class Transaction {
     private Long id;
     private Long senderAccountId;
     private Long recipientAccountId;
-    private double amount;
+    private Double amount;
     private long timestamp;
     private boolean flagged = false;
 
-    public Transaction(Long id, Long senderAccountId, Long recipientAccountId, double amount) {
+    public Transaction(Long id, Long senderAccountId, Long recipientAccountId, Double amount) {
         this.id = id;
         this.senderAccountId = senderAccountId;
         this.recipientAccountId = recipientAccountId;
@@ -40,11 +40,11 @@ public class Transaction {
         this.recipientAccountId = recipientAccountId;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

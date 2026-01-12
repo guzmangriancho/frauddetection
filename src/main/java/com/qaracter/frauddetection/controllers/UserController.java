@@ -43,13 +43,13 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/accounts/{accountId}/deposit")
-    public String deposit(@PathVariable Long userId, @PathVariable Long accountId, @RequestParam double amount) {
+    public String deposit(@PathVariable Long userId, @PathVariable Long accountId, @RequestParam Double amount) {
         boolean success = userService.processDeposit(userId, accountId, amount);
         return success ? "Success" : "Account not found or Error";
     }
 
     @PostMapping("/{userId}/accounts/{accountId}/withdraw")
-    public String withdraw(@PathVariable Long userId, @PathVariable Long accountId, @RequestParam double amount) {
+    public String withdraw(@PathVariable Long userId, @PathVariable Long accountId, @RequestParam Double amount) {
         boolean success = userService.processWithdrawal(userId, accountId, amount);
         return success ? "Success" : "Insufficient funds or Error";
     }
