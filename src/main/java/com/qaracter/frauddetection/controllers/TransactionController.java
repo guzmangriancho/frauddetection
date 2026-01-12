@@ -1,11 +1,10 @@
 package com.qaracter.frauddetection.controllers;
 
 
+import com.qaracter.frauddetection.models.Transaction;
 import com.qaracter.frauddetection.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/transaction")
@@ -30,5 +29,14 @@ public class TransactionController {
     @GetMapping("/amount/{transferId}")
     public double getAmount(Long transferId){
         return this.transactionService.getTransactionById(transferId).getAmount();
+    }
+
+    @PatchMapping("/{id}/flag")
+    public Transaction flagTransaction( @PathVariable Long id, boolean flag) {
+        Transaction transaction = transactionService.setTransactionFlag(id, flag);
+        if (transaction == null) {
+            throw new RuntimeException("Transaction not found");
+        }
+        return transaction;
     }
 }

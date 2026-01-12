@@ -2,12 +2,9 @@ package com.qaracter.frauddetection.services;
 
 import com.qaracter.frauddetection.models.Account;
 import com.qaracter.frauddetection.models.Transaction;
-import com.qaracter.frauddetection.services.AccountService;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class TransactionService {
     private List<Transaction> transactions;
@@ -102,5 +99,14 @@ public class TransactionService {
                 .filter(t -> t.getSenderAccountId().equals(senderAccountId) &&
                         t.getRecipientAccountId().equals(recipientAccountId))
                 .toList();
+    }
+
+    public Transaction setTransactionFlag(Long id, boolean flag) {
+        Transaction transaction = getTransactionById(id);
+        if (transaction != null) {
+            transaction.setFlagged(flag);
+            return transaction;
+        }
+        return null;
     }
 }
