@@ -16,14 +16,12 @@ public class TransactionService {
     }
 
     public Transaction transfer(Long senderId, Long recipientId, double amount) {
-
         Account sender = accountService.getAccount(senderId);
         Account recipient = accountService.getAccount(recipientId);
 
         if (!sender.withdraw(amount)) {
             throw new IllegalArgumentException("Insufficient balance");
         }
-
         recipient.deposit(amount);
 
         Transaction transaction = new Transaction(
@@ -32,6 +30,21 @@ public class TransactionService {
                 recipientId,
                 amount
         );
+
+        if (amount > 5000) {
+            transaction.setFlagged(true);
+            System.out.println("Transaction with id " + transaction.getId() + " flagged as suspicious: > $5000");
+        }
+
+        long oneMinuteAgo = System.currentTimeMillis() - 60000;
+        long count = transactions.stream()
+                .filter(t -> t.getSenderAccountId().equals(senderId))
+                .filter(t -> t.getTimestamp() > oneMinuteAgo)
+                .count();
+        if (count >= 5) {
+            transaction.setFlagged(true);
+            System.out.println("Transaction with id " + transaction.getId() + " flagged as suspicious: Transaction per minute limit reached");
+        }
 
         transactions.add(transaction);
         return transaction;
