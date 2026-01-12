@@ -38,6 +38,11 @@ public class TransactionController {
         return this.transactionService.getFlaggedTransactions();
     }
 
+    @GetMapping("/{amount}")
+    public List<Transaction> getTransactionsWithAmountLesserThan(double amount){
+        return this.transactionService.getTransactionsWithAmountLesserThan(amount);
+    }
+
     @GetMapping("/sender/{transferId}")
     public Long getSenderAccountId(Long transferId){
         return this.transactionService.getTransactionById(transferId).getSenderAccountId();
