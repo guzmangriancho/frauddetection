@@ -48,6 +48,11 @@ public class TransactionController {
         return this.transactionService.getTransactionsWithAmountGreaterThan(amount);
     }
 
+    @GetMapping("/sender/{sender_account_id}/recipient/{recipient_account_id")
+    public List<Transaction> getTransactionsBetween(Long sender_account_id, Long recipient_acount_id){
+        return this.transactionService.getTransactionsBetween(sender_account_id, recipient_acount_id);
+    }
+
     @GetMapping("/sender/{transferId}")
     public Long getSenderAccountId(Long transferId){
         return this.transactionService.getTransactionById(transferId).getSenderAccountId();
