@@ -33,6 +33,7 @@ public class TransactionController {
         return this.transactionService.getAllTransactions();
     }
 
+    @GetMapping("/flagged")
     public List<Transaction> getFlaggedTransactions(){
         return this.transactionService.getFlaggedTransactions();
     }
