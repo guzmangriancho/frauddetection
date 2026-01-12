@@ -38,9 +38,14 @@ public class TransactionController {
         return this.transactionService.getFlaggedTransactions();
     }
 
-    @GetMapping("/{amount}")
+    @GetMapping("/lesser/{amount}")
     public List<Transaction> getTransactionsWithAmountLesserThan(double amount){
         return this.transactionService.getTransactionsWithAmountLesserThan(amount);
+    }
+
+    @GetMapping("/greater/{amount}")
+    public List<Transaction> getTransactionsWithAmountGreaterThan(double amount){
+        return this.transactionService.getTransactionsWithAmountGreaterThan(amount);
     }
 
     @GetMapping("/sender/{transferId}")
