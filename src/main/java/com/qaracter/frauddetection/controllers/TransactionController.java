@@ -7,6 +7,8 @@ import com.qaracter.frauddetection.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/transaction")
 public class TransactionController {
@@ -24,6 +26,11 @@ public class TransactionController {
                 request.getRecipientAccountId(),
                 request.getAmount()
         );
+    }
+
+    @GetMapping()
+    public List<Transaction> getAllTransactions(){
+        return this.transactionService.getAllTransactions();
     }
 
     @GetMapping("/sender/{transferId}")
